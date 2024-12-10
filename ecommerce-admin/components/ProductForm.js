@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Layout from "@/components/Layout";
@@ -13,14 +13,22 @@ export default function ProductForm({
   description: existingDescription,
   price: existingPrice,
   images: existingImages,
+  category:assignedCategory,
 }) {
   const [title, setTitle] = useState(existingTitle || "");
   const [description, setDescription] = useState(existingDescription || "");
+  const [category,setCategory]=useState(assignedCategory || '');
   const [price, setPrice] = useState(existingPrice || "");
   const [images, setImages] = useState(existingImages || []);
   const [isUploading, setIsUploading] = useState(false);
   const [goToProducts, setGoToProducts] = useState(false);
   const router = useRouter();
+  const [categories, setCategories]=useState([]);
+  useEffect(()=>{
+    axios.get('/api/categories').then(result =>{
+      setCategories(result.data);
+    })
+  },[])
   async function saveProduct(ev) {
     ev.preventDefault();
     const data = {
@@ -28,6 +36,7 @@ export default function ProductForm({
       description,
       price,
       images,
+      category,
     };
     if (_id) {
       //update
@@ -66,13 +75,21 @@ export default function ProductForm({
   return (
     <form onSubmit={saveProduct}>
       <h1 className="">New Product</h1>
-      <label> Producr name</label>
+      <label> Product name</label>
       <input
         type="text"
         placeholder="product name"
         value={title}
         onChange={(ev) => setTitle(ev.target.value)}
       />
+      <label >Category</label>
+      <select value={category} onChange={ev=>setCategory(ev.target.value)}>
+        <option value=''>Uncategorized</option>
+        {categories.length>0 && categories.map(c=>(
+          <option key={c._id} value={c._id}>{c.name}</option>
+        ))}
+        
+      </select>
 
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
