@@ -5,6 +5,7 @@ import axios from "axios";
 import Layout from "@/components/Layout";
 import { set } from "mongoose";
 import Spinner from "./spinner";
+import { ReactSortable } from "react-sortablejs";
 
 export default function ProductForm({
   _id,
@@ -17,7 +18,7 @@ export default function ProductForm({
   const [description, setDescription] = useState(existingDescription || "");
   const [price, setPrice] = useState(existingPrice || "");
   const [images, setImages] = useState(existingImages || []);
-  const [isUploading, setIsUploading] = useState(false)
+  const [isUploading, setIsUploading] = useState(false);
   const [goToProducts, setGoToProducts] = useState(false);
   const router = useRouter();
   async function saveProduct(ev) {
@@ -26,7 +27,7 @@ export default function ProductForm({
       title,
       description,
       price,
-      images
+      images,
     };
     if (_id) {
       //update
@@ -42,7 +43,6 @@ export default function ProductForm({
   }
 
   async function uploadImages(ev) {
-
     const files = ev.target?.files;
     if (files?.length > 0) {
       setIsUploading(true);
@@ -59,6 +59,10 @@ export default function ProductForm({
     }
   }
 
+  function uploadImagesOrder(images){
+    setImages(images)
+  }
+
   return (
     <form onSubmit={saveProduct}>
       <h1 className="">New Product</h1>
@@ -72,21 +76,26 @@ export default function ProductForm({
 
       <label>Photos</label>
       <div className="mb-2 flex flex-wrap gap-1">
-        {!!images?.length &&
-          images.map((link) => (
-            <div key={link} className=" h-24 ">
-              <img
-              className="rounded-lg"
-                src={link}
-                alt=""
-              />
-            </div>
-          ))}
-          {isUploading && (
-            <div className="h-24 p-1  flex items-center ">
-              <Spinner/>
-            </div>
-          )}
+        <ReactSortable list={images} setList={uploadImagesOrder} className="flex flex-wrap gap-1">
+          {!!images?.length &&
+            images.map((link) => (
+              <div
+                key={link}
+                className=" h-24 "
+              >
+                <img
+                  className="rounded-lg"
+                  src={link}
+                  alt=""
+                />
+              </div>
+            ))}
+        </ReactSortable >
+        {isUploading && (
+          <div className="h-24 p-1  flex items-center ">
+            <Spinner />
+          </div>
+        )}
         <label
           className="w-24 h-24  text-center cursor-pointer
         flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200"
