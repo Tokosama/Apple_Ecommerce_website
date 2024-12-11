@@ -42,6 +42,6 @@ table.basic a{
 .btn-red{
   @apply bg-red-800 text-white; 
 }
-.btm-default{
-  @apply bg-gray-500 text-white;
+.btn-default{
+  @apply bg-gray-500 text-white rounded-md p-1 px-2 text-sm; 
 }
