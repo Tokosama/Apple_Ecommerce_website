@@ -4,6 +4,6 @@ const CategorySchema = new Schema({
     parent: {type:mongoose.Types.ObjectId, ref:'Category'},
     properties: [{type:Object}]
 
-});
+},);
 
 export const Category = models?.Category || model('Category', CategorySchema);
