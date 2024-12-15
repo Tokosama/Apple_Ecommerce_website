@@ -1,44 +1,72 @@
 import { primary } from "@/lib/color";
 import styled, { css } from "styled-components";
 export const ButtonStyle = css`
-border: 0;
+  border: 0;
   padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  font-family: 'Roboto';
+  font-family: "Roboto";
   font-weight: 700;
-  svg{
-    height:16px;
+  svg {
+    height: 16px;
     margin-right: 5px;
   }
-  ${(props) => props.white && !props.outline &&
+  ${(props) =>
+    props.block &&
+    css`
+      display: block;
+      width: 100%;
+    `}
+  ${(props) =>
+    props.white &&
+    !props.outline &&
     css`
       background-color: #fff;
       color: #000;
     `}
 
   ${(props) =>
-    props.white && props.outline &&
+    props.white &&
+    props.outline &&
     css`
       background-color: transparent;
       color: #fff;
-      border: 1px solid #fff;    `}
+      border: 1px solid #fff;
+    `}
+    ${(props) =>
+    props.black &&
+    !props.outline &&
+    css`
+      background-color: #000;
+      color: #fff;
+    `}
+
   ${(props) =>
-    props.primary && !props.outline &&
+    props.black &&
+    props.outline &&
+    css`
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid #000;
+    `}
+  ${(props) =>
+    props.primary &&
+    !props.outline &&
     css`
       background-color: ${primary};
       color: #fff;
-      border: 1px solid ${primary}; 
+      border: 1px solid ${primary};
     `}
     ${(props) =>
-    props.primary && props.outline &&
+    props.primary &&
+    props.outline &&
     css`
       background-color: transparent;
       color: #fff;
-      border: 1px solid ${primary}; 
+      border: 1px solid ${primary};
       color: ${primary};
     `}
   ${(props) =>
@@ -46,12 +74,12 @@ border: 0;
     css`
       font-size: 1.2rem;
       padding: 10px 20px;
-      svg{
-        height:20px  ;
+      svg {
+        height: 20px;
         margin-right: 5px;
       }
     `}
-`
+`;
 export const StyleButton = styled.button`
   ${ButtonStyle}
 `;
