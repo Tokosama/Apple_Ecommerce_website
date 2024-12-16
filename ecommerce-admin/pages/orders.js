@@ -17,6 +17,8 @@ export default function OrdersPage() {
         <thead>
           <tr>
             <th>Date</th>
+            <th>Paid</th>
+
             <th>REcipient</th>
             <th>Products</th>
           </tr>

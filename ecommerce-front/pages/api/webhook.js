@@ -1,5 +1,49 @@
-import { mongooseConnect } from "@/lib/mongoose";
+import {mongooseConnect} from "@/lib/mongoose";
+const stripe = require('stripe')(process.env.STRIPE_SK);
+import {buffer} from 'micro';
+import {Order} from "@/models/Order";
 
-export default async function handler (req,res){
-    await mongooseConnect();
+const endpointSecret = "whsec_c6978c38de88ae053d52c0b7a0f8192fe73ea50a10f9ab4d6293fa011eeb3cc8";
+
+export default async function handler(req,res) {
+  await mongooseConnect();
+  const sig = req.headers['stripe-signature'];
+
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(await buffer(req), sig, endpointSecret);
+  } catch (err) {
+    res.status(400).send(`Webhook Error: ${err.message}`);
+    return;
+  }
+
+  // Handle the event
+  switch (event.type) {
+    case 'checkout.session.completed':
+      const data = event.data.object;
+      const orderId = data.metadata.orderId;
+      const paid = data.payment_status === 'paid';
+      if (orderId && paid) {
+        await Order.findByIdAndUpdate(orderId,{
+          paid:true,
+        })
+      }
+      break;
+    default:
+      console.log(`Unhandled event type ${event.type}`);
+  }
+
+  res.status(200).send('ok');
 }
+
+export const config = {
+  api: {bodyParser:false,}
+};
+
+// bright-thrift-cajole-lean
+// acct_1Lj5ADIUXXMmgk2a
+
+//modest-valor-zenith-helped
+//acct_1QWFE2LIrZuUyXuI
+//whsec_c6978c38de88ae053d52c0b7a0f8192fe73ea50a10f9ab4d6293fa011eeb3cc8 
