@@ -53,6 +53,7 @@ export default async function handler(req, res) {
     cancel_url:process.env.PUBLIC_URL+'/cart?canceled=1',
     metadata:{orderId:orderDoc._id.toString()},
   });
+  console.log(url.session);
   res.json({
     url:session.url,
   })
