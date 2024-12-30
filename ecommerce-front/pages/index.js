@@ -19,7 +19,7 @@ export default function HomePage({ featuredProduct,newProducts }) {
 //Cest pour pouvoir recuper les elements de la bases de donnees et les passer en props
 
 export async function getServerSideProps() {
-  const featuredProductId = "675b7c445a46b4fd312c4ce7";
+  const featuredProductId = "6772a3716f946b3daf760b05";
   await mongooseConnect();
   const featuredProduct = await Product.findById(featuredProductId);
   const newProducts = await Product.find({}, null, {

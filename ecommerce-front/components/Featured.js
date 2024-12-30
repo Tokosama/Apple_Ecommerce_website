@@ -19,7 +19,7 @@ const Title = styled.h1`
   font-weight: normal;
   font-size: 2rem;
   @media screen and (min-width: 768px) {
-  font-size: 3rem;
+  font-size: 2.5rem;
 
   }
 `;
@@ -73,11 +73,11 @@ export default function Featured({ product }) {
         <ColumnsWrapper>
           <Column>
             <div>
-              <Title>{product.title}</Title>
-              <Desc>{product.description} </Desc>
+              <Title>{product?.title}</Title>
+              <Desc>{product?.description} </Desc>
               <ButtonsWrapper>
                 <ButtonLink
-                  href={"/product/" + product._id}
+                  href={"/product/" + product?._id}
                   outline={1}
                   white={1}
                 >
@@ -95,7 +95,7 @@ export default function Featured({ product }) {
             </div>
           </Column>
           <Column>
-            <img src="https://apple-ecommerce.s3.amazonaws.com/1734041469754.png" />
+            <img src={product.images[0]} />
           </Column>
         </ColumnsWrapper>
       </Center>

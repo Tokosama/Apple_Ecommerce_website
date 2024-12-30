@@ -27,6 +27,9 @@ const Title = styled(Link)`
   font-size: 0.9rem;
   color: inherit;
   text-decoration: none;
+  white-space: nowrap; /* Empêche le retour à la ligne */
+  overflow: hidden; /* Cache le texte qui dépasse */
+  text-overflow: ellipsis;
   margin: 0;
 `;
 
