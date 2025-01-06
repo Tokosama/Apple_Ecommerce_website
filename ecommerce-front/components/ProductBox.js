@@ -27,10 +27,16 @@ const Title = styled(Link)`
   font-size: 0.9rem;
   color: inherit;
   text-decoration: none;
-  white-space: nowrap; /* Empêche le retour à la ligne */
-  overflow: hidden; /* Cache le texte qui dépasse */
-  text-overflow: ellipsis;
+
   margin: 0;
+`;
+const TitleWrapper=styled.div`
+  height: 40px;
+  @media screen and (min-width: 460px) {
+  height: auto;
+    
+  }
+
 `;
 
 const ProductInfoBox = styled.div`
@@ -69,7 +75,11 @@ export default function ProductBox({ _id, title, description, price, images }) {
         </div>
       </WhiteBox>
       <ProductInfoBox>
-        <Title href={url}>{title}</Title>
+      <TitleWrapper>
+          <Title href={url}>{title}</Title>
+
+          </TitleWrapper>
+
         <PriceRow>
           <Price>${price}</Price>
           <div>
