@@ -32,10 +32,7 @@ const Title = styled(Link)`
 `;
 const TitleWrapper=styled.div`
   height: 40px;
-  @media screen and (min-width: 460px) {
-  height: auto;
-    
-  }
+  
 
 `;
 
@@ -47,7 +44,7 @@ const PriceRow = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 2px;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 840px) {
     display: flex;
     gap: 5px;
   }
@@ -57,10 +54,10 @@ const Price = styled.div`
   font-size: 1rem;
   font-weight: 700;
   text-align: right;
-  @media screen and (min-width: 768px) {
+  @media screen and (min-width: 840px) {
   text-align: left;
 
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 
   }
 `;
