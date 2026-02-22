@@ -5,7 +5,7 @@ import { Instagram, Twitter } from "lucide-react";
 import Link from "next/link";
 
 const Bg = styled.footer`
-  background: #111;
+  background: #222;
   color: #ddd;
   padding: 60px 0 40px;
   font-size: 14px;
