@@ -3,18 +3,18 @@ import Header from "@/components/Header";
 import { Product } from "@/models/Product";
 import { mongooseConnect } from "@/lib/mongoose";
 import NewProducts from "@/components/NewProducts";
+import Bottom from "@/components/Bottom";
 
-export default function HomePage({ featuredProduct,newProducts }) {
+export default function HomePage({ featuredProduct, newProducts }) {
   return (
     <div>
       <Header />
       <Featured product={featuredProduct} />
       <NewProducts products={newProducts} />
+      <Bottom />
     </div>
   );
 }
-
-
 
 //Cest pour pouvoir recuper les elements de la bases de donnees et les passer en props
 
