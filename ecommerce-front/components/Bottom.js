@@ -8,6 +8,7 @@ const Bg = styled.footer`
   background: #222;
   color: #ddd;
   padding: 60px 0 40px;
+  margin-top: 50px;
   font-size: 14px;
 `;
 
